@@ -1,0 +1,15 @@
+function generateBookingId() {
+  const bookingsSheet =
+    getDatabase()
+      .getSheetByName("Bookings");
+
+  const lastRow =
+    bookingsSheet.getLastRow();
+
+  const nextNumber =
+    Math.max(lastRow, 1);
+
+  return "BK" +
+    String(nextNumber)
+      .padStart(5, "0");
+}
