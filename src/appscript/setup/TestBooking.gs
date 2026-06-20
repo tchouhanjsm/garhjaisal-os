@@ -1,47 +1,30 @@
-function testCreateBooking() {
+function testDoubleBooking() {
 
-  const booking =
-    createBooking({
+  createBooking({
+    guestName: "Guest One",
+    phone: "1111111111",
 
-      guestName:
-        "John Smith",
+    checkIn: "2026-07-10",
+    checkOut: "2026-07-12",
 
-      phone:
-        "9999999999",
+    roomId: "R001",
 
-      checkIn:
-        "2026-07-01",
+    rate: 4000,
 
-      checkOut:
-        "2026-07-03",
+    createdBy: "OWNER"
+  });
 
-      roomId:
-        "R001",
+  createBooking({
+    guestName: "Guest Two",
+    phone: "2222222222",
 
-      rate:
-        4500,
+    checkIn: "2026-07-11",
+    checkOut: "2026-07-13",
 
-      advance:
-        1000,
+    roomId: "R001",
 
-      company:
-        "Direct",
+    rate: 4000,
 
-      source:
-        "DIRECT",
-
-      notes:
-        "Test Booking",
-
-      createdBy:
-        "OWNER"
-    });
-
-  Logger.log(
-    JSON.stringify(
-      booking,
-      null,
-      2
-    )
-  );
+    createdBy: "OWNER"
+  });
 }

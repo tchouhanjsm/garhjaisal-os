@@ -53,6 +53,19 @@ function createBooking(data) {
       new Date()
   };
 
+  const available =
+  isRoomAvailable(
+    booking.roomId,
+    booking.checkIn,
+    booking.checkOut
+  );
+
+if (!available) {
+  throw new Error(
+    `Room ${booking.roomId} is not available`
+  );
+}
+
   saveBooking(booking);
 
   logAudit(
