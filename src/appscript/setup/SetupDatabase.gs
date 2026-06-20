@@ -1,124 +1,18 @@
-/**
- * GarhJaisal OS
- * Initial Database Setup
- *
- * Run:
- * initializeSystem()
- */
-
 function initializeSystem() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getDatabase();
 
-  createUsersSheet(ss);
-  createRoomsSheet(ss);
-  createGuestsSheet(ss);
-  createBookingsSheet(ss);
-  createAuditLogsSheet(ss);
+  setupSettingsSheet(ss);
+  setupUsersSheet(ss);
+  setupRoomsSheet(ss);
+  setupGuestsSheet(ss);
+  setupBookingsSheet(ss);
+  setupAuditLogsSheet(ss);
 
   seedRooms(ss);
 
   Logger.log("GarhJaisal OS initialized successfully.");
 }
 
-/**
- * USERS
- */
-function createUsersSheet(ss) {
-  const headers = [
-    "UserID",
-    "Email",
-    "Name",
-    "Role",
-    "Active",
-    "CreatedAt"
-  ];
-
-  createSheet(ss, "Users", headers);
-}
-
-/**
- * ROOMS
- */
-function createRoomsSheet(ss) {
-  const headers = [
-    "RoomID",
-    "RoomNo",
-    "RoomName",
-    "Category",
-    "Floor",
-    "Capacity",
-    "Status",
-    "Active"
-  ];
-
-  createSheet(ss, "Rooms", headers);
-}
-
-/**
- * GUESTS
- */
-function createGuestsSheet(ss) {
-  const headers = [
-    "GuestID",
-    "Name",
-    "Phone",
-    "Email",
-    "Nationality",
-    "IDType",
-    "IDNumber",
-    "Notes",
-    "TotalStays",
-    "CreatedAt"
-  ];
-
-  createSheet(ss, "Guests", headers);
-}
-
-/**
- * BOOKINGS
- */
-function createBookingsSheet(ss) {
-  const headers = [
-    "BookingID",
-    "GuestID",
-    "GuestName",
-    "Phone",
-    "CheckIn",
-    "CheckOut",
-    "RoomID",
-    "Rate",
-    "Advance",
-    "Company",
-    "Source",
-    "Notes",
-    "Status",
-    "CreatedBy",
-    "CreatedAt"
-  ];
-
-  createSheet(ss, "Bookings", headers);
-}
-
-/**
- * AUDIT LOGS
- */
-function createAuditLogsSheet(ss) {
-  const headers = [
-    "LogID",
-    "Timestamp",
-    "User",
-    "Module",
-    "Action",
-    "RecordID",
-    "Details"
-  ];
-
-  createSheet(ss, "AuditLogs", headers);
-}
-
-/**
- * GENERIC SHEET CREATOR
- */
 function createSheet(ss, sheetName, headers) {
   let sheet = ss.getSheetByName(sheetName);
 
@@ -135,13 +29,130 @@ function createSheet(ss, sheetName, headers) {
   sheet.setFrozenRows(1);
 
   sheet.autoResizeColumns(1, headers.length);
+
+  return sheet;
 }
 
-/**
- * SEED HOTEL ROOMS
- */
+function setupSettingsSheet(ss) {
+  const headers = [
+    "Key",
+    "Value"
+  ];
+
+  const sheet = createSheet(
+    ss,
+    "Settings",
+    headers
+  );
+
+  const settings = [
+    ["HOTEL_NAME", "Garh Jaisal Haveli"],
+    ["GST_NUMBER", ""],
+    ["PHONE", ""],
+    ["EMAIL", ""],
+    ["INVOICE_PREFIX", "INV"],
+    ["NEXT_INVOICE_NUMBER", "1"]
+  ];
+
+  sheet
+    .getRange(2, 1, settings.length, 2)
+    .setValues(settings);
+}
+
+function setupUsersSheet(ss) {
+  createSheet(
+    ss,
+    "Users",
+    [
+      "UserID",
+      "Email",
+      "Name",
+      "Role",
+      "Active",
+      "CreatedAt"
+    ]
+  );
+}
+
+function setupRoomsSheet(ss) {
+  createSheet(
+    ss,
+    "Rooms",
+    [
+      "RoomID",
+      "RoomNo",
+      "RoomName",
+      "Category",
+      "Floor",
+      "Capacity",
+      "Status",
+      "Active"
+    ]
+  );
+}
+
+function setupGuestsSheet(ss) {
+  createSheet(
+    ss,
+    "Guests",
+    [
+      "GuestID",
+      "Name",
+      "Phone",
+      "Email",
+      "Nationality",
+      "IDType",
+      "IDNumber",
+      "Notes",
+      "TotalStays",
+      "CreatedAt"
+    ]
+  );
+}
+
+function setupBookingsSheet(ss) {
+  createSheet(
+    ss,
+    "Bookings",
+    [
+      "BookingID",
+      "GuestID",
+      "GuestName",
+      "Phone",
+      "CheckIn",
+      "CheckOut",
+      "RoomID",
+      "Rate",
+      "Advance",
+      "Company",
+      "Source",
+      "Notes",
+      "Status",
+      "CreatedBy",
+      "CreatedAt"
+    ]
+  );
+}
+
+function setupAuditLogsSheet(ss) {
+  createSheet(
+    ss,
+    "AuditLogs",
+    [
+      "LogID",
+      "Timestamp",
+      "User",
+      "Module",
+      "Action",
+      "RecordID",
+      "Details"
+    ]
+  );
+}
+
 function seedRooms(ss) {
-  const sheet = ss.getSheetByName("Rooms");
+  const sheet =
+    ss.getSheetByName("Rooms");
 
   const rooms = [
     ["R001", 1, "Sunrise", "Heritage", "Ground", 2, "Available", true],
@@ -154,8 +165,11 @@ function seedRooms(ss) {
   ];
 
   sheet
-    .getRange(2, 1, rooms.length, rooms[0].length)
+    .getRange(
+      2,
+      1,
+      rooms.length,
+      rooms[0].length
+    )
     .setValues(rooms);
-
-  sheet.autoResizeColumns(1, 8);
 }
