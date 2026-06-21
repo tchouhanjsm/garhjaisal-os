@@ -1,4 +1,11 @@
 function initializeSystem() {
+  if (isProduction()) {
+
+  throw new Error(
+    "Initialization disabled in production"
+  );
+
+}
   const ss = getDatabase();
 
   setupSettingsSheet(ss);
