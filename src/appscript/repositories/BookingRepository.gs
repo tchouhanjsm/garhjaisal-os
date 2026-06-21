@@ -165,3 +165,46 @@ function updateBookingCheckOutDate(
 
   return false;
 }
+
+function getBookingById(
+  bookingId
+) {
+
+  const sheet =
+    getDatabase()
+      .getSheetByName(
+        "Bookings"
+      );
+
+  const rows =
+    sheet
+      .getDataRange()
+      .getValues();
+
+  for (
+    let i = 1;
+    i < rows.length;
+    i++
+  ) {
+
+    if (
+      rows[i][0] === bookingId
+    ) {
+
+      return {
+        bookingId: rows[i][0],
+        guestId: rows[i][1],
+        roomName: rows[i][2],
+        guestName: rows[i][3],
+        phone: rows[i][4],
+        checkIn: rows[i][5],
+        checkOut: rows[i][6],
+        status: rows[i][14]
+      };
+
+    }
+
+  }
+
+  return null;
+}
