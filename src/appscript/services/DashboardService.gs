@@ -1,14 +1,22 @@
 function generateDashboard() {
+    const db =
+      getDatabase();
 
-  const db =
-    getDatabase();
+  let dashboard =
+  db.getSheetByName(
+    "Dashboard"
+  );
 
-  const dashboard =
-    db.getSheetByName(
+if (!dashboard) {
+
+  dashboard =
+    db.insertSheet(
       "Dashboard"
     );
 
-  dashboard.clear();
+}
+
+dashboard.clear();
 
   const today =
     todayDate();

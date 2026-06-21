@@ -1,0 +1,31 @@
+{
+  "name": "garhjaisal-os",
+  "version": "1.0.0",
+  "description": "Hotel Operations System for Garh Jaisal Haveli.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "echo \"No tests configured yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tchouhanjsm/garhjaisal-os.git"
+  },
+  "keywords": [],
+  "author": "Anmol Ratan",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/tchouhanjsm/garhjaisal-os/issues"
+  },
+  "homepage": "https://github.com/tchouhanjsm/garhjaisal-os#readme",
+  "devDependencies": {
+    "eslint": "^10.5.0",
+    "eslint-plugin-googleappsscript": "^1.0.5"
+  }
+}
