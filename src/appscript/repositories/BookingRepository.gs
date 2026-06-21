@@ -15,6 +15,7 @@ function saveBooking(booking) {
   booking.nights,
 
   booking.roomId,
+  booking.roomName,
 
   booking.rate,
   booking.advance,

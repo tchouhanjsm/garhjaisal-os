@@ -5,7 +5,14 @@ function createBooking(data) {
       "Guest name is required"
     );
   }
+  const room =
+    getRoomById(data.roomId);
 
+  if (!room) {
+    throw new Error(
+      "Invalid room"
+    );
+  }
   const booking = {
 
     bookingId:
@@ -34,6 +41,9 @@ function createBooking(data) {
 
     roomId:
       data.roomId,
+
+    roomName:
+      room.roomName,
 
     rate:
       data.rate || 0,

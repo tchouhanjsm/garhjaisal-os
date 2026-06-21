@@ -26,3 +26,29 @@ function getBookingsByRoom(roomId) {
       status: row[12]
     }));
 }
+
+function getRoomById(roomId) {
+
+  const sheet =
+    getDatabase()
+      .getSheetByName("Rooms");
+
+  const rows =
+    sheet.getDataRange()
+      .getValues()
+      .slice(1);
+
+  for (const row of rows) {
+
+    if (row[0] === roomId) {
+
+      return {
+        roomId: row[0],
+        roomNo: row[1],
+        roomName: row[2]
+      };
+    }
+  }
+
+  return null;
+}
