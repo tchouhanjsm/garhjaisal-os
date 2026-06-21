@@ -28,3 +28,42 @@ function testDoubleBooking() {
     createdBy: "OWNER"
   });
 }
+
+function testAvailableRoom() {
+
+  createBooking({
+    guestName: "Guest Three",
+
+    checkIn: "2026-07-11",
+    checkOut: "2026-07-13",
+
+    roomId: "R002",
+
+    rate: 4000,
+
+    createdBy: "OWNER"
+  });
+
+}
+
+function runAvailabilityTests() {
+
+  Logger.log("Starting tests...");
+
+  try {
+
+    testDoubleBooking();
+
+  } catch (err) {
+
+    Logger.log(
+      "Double booking blocked successfully: " +
+      err.message
+    );
+
+  }
+
+  testAvailableRoom();
+
+  Logger.log("Tests completed");
+}
