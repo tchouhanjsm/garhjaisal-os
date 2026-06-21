@@ -5,33 +5,163 @@ function saveBooking(booking) {
       .getSheetByName("Bookings");
 
   sheet.appendRow([
-  booking.bookingId,
-  booking.guestId,
-  booking.guestName,
-  booking.phone,
+  booking.bookingId,      // 1
+  booking.guestId,        // 2
 
-  booking.checkIn,
-  booking.checkOut,
-  booking.nights,
+  booking.roomName,       // 3
+  booking.guestName,      // 4
+  booking.phone,          // 5
 
-  booking.roomId,
-  booking.roomName,
+  booking.checkIn,        // 6
+  booking.checkOut,       // 7
+  booking.nights,         // 8
 
-  booking.rate,
-  booking.advance,
+  booking.roomId,         // 9
 
-  booking.company,
+  booking.rate,           // 10
+  booking.advance,        // 11
 
-  booking.source,
+  booking.company,        // 12
+  booking.source,         // 13
+  booking.notes,          // 14
 
-  booking.notes,
+  booking.status,         // 15
 
-  booking.status,
+  "",                     // 16 CheckInDate
+  "",                     // 17 CheckOutDate
 
-  booking.createdBy,
-
-  booking.createdAt
+  booking.createdBy,      // 18
+  booking.createdAt       // 19
 ]);
 
   return booking;
+}
+
+function updateBookingStatus(
+  bookingId,
+  status
+) {
+
+  const sheet =
+    getDatabase()
+      .getSheetByName(
+        "Bookings"
+      );
+
+  const rows =
+    sheet
+      .getDataRange()
+      .getValues();
+
+  for (
+    let i = 1;
+    i < rows.length;
+    i++
+  ) {
+
+    if (
+      rows[i][0] ===
+      bookingId
+    ) {
+
+      sheet
+        .getRange(
+          i + 1,
+          15
+        )
+        .setValue(
+          status
+        );
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+function updateBookingCheckInDate(
+  bookingId,
+  date
+) {
+
+  const sheet =
+    getDatabase()
+      .getSheetByName(
+        "Bookings"
+      );
+
+  const rows =
+    sheet
+      .getDataRange()
+      .getValues();
+
+  for (
+    let i = 1;
+    i < rows.length;
+    i++
+  ) {
+
+    if (
+      rows[i][0] ===
+      bookingId
+    ) {
+
+      sheet
+        .getRange(
+          i + 1,
+          16
+        )
+        .setValue(
+          date
+        );
+
+      return true;
+    }
+  }
+
+  return false;
+}
+function updateBookingCheckOutDate(
+  bookingId,
+  date
+) {
+
+  const sheet =
+    getDatabase()
+      .getSheetByName(
+        "Bookings"
+      );
+
+  const rows =
+    sheet
+      .getDataRange()
+      .getValues();
+
+  for (
+    let i = 1;
+    i < rows.length;
+    i++
+  ) {
+
+    if (
+      rows[i][0] ===
+      bookingId
+    ) {
+
+      sheet
+        .getRange(
+          i + 1,
+          17
+        )
+        .setValue(
+          date
+        );
+
+      return true;
+    }
+  }
+
+  return false;
 }
