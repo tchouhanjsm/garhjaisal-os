@@ -11,7 +11,8 @@ function createBooking(data) {
     bookingId:
       generateBookingId(),
 
-    guestId: "",
+    guestId: 
+      getOrCreateGuest(data),
 
     guestName:
       data.guestName,
@@ -24,6 +25,12 @@ function createBooking(data) {
 
     checkOut:
       data.checkOut,
+
+    nights:
+      calculateNights(
+        data.checkIn,
+        data.checkOut
+      ),
 
     roomId:
       data.roomId,
@@ -50,7 +57,7 @@ function createBooking(data) {
       data.createdBy || "SYSTEM",
 
     createdAt:
-      new Date()
+      today()
   };
 
   const available =
@@ -67,6 +74,10 @@ if (!available) {
 }
 
   saveBooking(booking);
+  updateGuestStayStats(
+    booking.guestId,
+    booking.checkOut
+  );
 
   logAudit(
     booking.createdBy,
