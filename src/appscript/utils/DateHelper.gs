@@ -26,3 +26,12 @@ function calculateNights(
     (1000 * 60 * 60 * 24)
   );
 }
+function todayDate() {
+
+  return Utilities.formatDate(
+    new Date(),
+    Session.getScriptTimeZone(),
+    "yyyy-MM-dd"
+  );
+
+}
