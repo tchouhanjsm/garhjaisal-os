@@ -1,0 +1,5 @@
+generateMonthlyCalendar(
+  year,
+  month
+)
+generateTodayView()
