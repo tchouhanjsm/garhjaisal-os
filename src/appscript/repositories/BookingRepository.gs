@@ -90,12 +90,33 @@ function getBookingById(bookingId) {
     if (rows[i][0] === bookingId) {
       return {
         bookingId: rows[i][0],
+
         guestId: rows[i][1],
+
         roomName: rows[i][2],
+
         guestName: rows[i][3],
+
         phone: rows[i][4],
+
         checkIn: rows[i][5],
+
         checkOut: rows[i][6],
+
+        nights: rows[i][7],
+
+        roomId: rows[i][8],
+
+        rate: rows[i][9],
+
+        advance: rows[i][10],
+
+        company: rows[i][11],
+
+        source: rows[i][12],
+
+        notes: rows[i][13],
+
         status: rows[i][14],
       };
     }
