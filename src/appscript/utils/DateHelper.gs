@@ -1,37 +1,24 @@
 function today() {
-
   return Utilities.formatDate(
     new Date(),
     Session.getScriptTimeZone(),
-    "yyyy-MM-dd"
+    "yyyy-MM-dd",
   );
 }
 
-function calculateNights(
-  checkIn,
-  checkOut
-) {
+function calculateNights(checkIn, checkOut) {
+  const start = new Date(checkIn);
 
-  const start =
-    new Date(checkIn);
+  const end = new Date(checkOut);
 
-  const end =
-    new Date(checkOut);
+  const diff = end - start;
 
-  const diff =
-    end - start;
-
-  return Math.round(
-    diff /
-    (1000 * 60 * 60 * 24)
-  );
+  return Math.round(diff / (1000 * 60 * 60 * 24));
 }
 function todayDate() {
-
   return Utilities.formatDate(
     new Date(),
     Session.getScriptTimeZone(),
-    "yyyy-MM-dd"
+    "yyyy-MM-dd",
   );
-
 }

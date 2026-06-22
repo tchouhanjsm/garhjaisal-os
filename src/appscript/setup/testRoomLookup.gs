@@ -1,9 +1,5 @@
 function testRoomLookup() {
+  const room = getRoomById("R004");
 
-  const room =
-    getRoomById("R004");
-
-  Logger.log(
-    JSON.stringify(room)
-  );
+  Logger.log(JSON.stringify(room));
 }

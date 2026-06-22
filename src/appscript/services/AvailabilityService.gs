@@ -1,32 +1,20 @@
 /**
  * Returns true if room is available
  */
-function isRoomAvailable(
-  roomId,
-  requestedCheckIn,
-  requestedCheckOut
-) {
+function isRoomAvailable(roomId, requestedCheckIn, requestedCheckOut) {
+  const bookings = getBookingsByRoom(roomId);
 
-  const bookings =
-    getBookingsByRoom(roomId);
+  const newCheckIn = new Date(requestedCheckIn);
 
-  const newCheckIn =
-    new Date(requestedCheckIn);
-
-  const newCheckOut =
-    new Date(requestedCheckOut);
+  const newCheckOut = new Date(requestedCheckOut);
 
   for (const booking of bookings) {
+    const existingCheckIn = new Date(booking.checkIn);
 
-    const existingCheckIn =
-      new Date(booking.checkIn);
-
-    const existingCheckOut =
-      new Date(booking.checkOut);
+    const existingCheckOut = new Date(booking.checkOut);
 
     const overlap =
-      newCheckIn < existingCheckOut &&
-      newCheckOut > existingCheckIn;
+      newCheckIn < existingCheckOut && newCheckOut > existingCheckIn;
 
     if (overlap) {
       return false;

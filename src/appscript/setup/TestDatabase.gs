@@ -1,7 +1,5 @@
 function testDatabaseConnection() {
   const db = getDatabase();
 
-  Logger.log(
-    "Connected to: " + db.getName()
-  );
+  Logger.log("Connected to: " + db.getName());
 }

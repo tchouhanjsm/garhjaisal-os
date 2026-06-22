@@ -1,5 +1,4 @@
 function testDoubleBooking() {
-
   createBooking({
     guestName: "Guest One",
     phone: "1111111111",
@@ -11,7 +10,7 @@ function testDoubleBooking() {
 
     rate: 4000,
 
-    createdBy: "OWNER"
+    createdBy: "OWNER",
   });
 
   createBooking({
@@ -25,12 +24,11 @@ function testDoubleBooking() {
 
     rate: 4000,
 
-    createdBy: "OWNER"
+    createdBy: "OWNER",
   });
 }
 
 function testAvailableRoom() {
-
   createBooking({
     guestName: "Guest Three",
 
@@ -41,26 +39,17 @@ function testAvailableRoom() {
 
     rate: 4000,
 
-    createdBy: "OWNER"
+    createdBy: "OWNER",
   });
-
 }
 
 function runAvailabilityTests() {
-
   Logger.log("Starting tests...");
 
   try {
-
     testDoubleBooking();
-
   } catch (err) {
-
-    Logger.log(
-      "Double booking blocked successfully: " +
-      err.message
-    );
-
+    Logger.log("Double booking blocked successfully: " + err.message);
   }
 
   testAvailableRoom();

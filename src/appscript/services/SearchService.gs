@@ -1,5 +1,4 @@
 function findBookings(query) {
-
   if (!query) {
     return [];
   }

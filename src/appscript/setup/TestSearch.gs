@@ -1,41 +1,17 @@
 function testSearchByName() {
+  const results = findBookings("john");
 
-  const results =
-    findBookings("john");
-
-  Logger.log(
-    JSON.stringify(
-      results,
-      null,
-      2
-    )
-  );
+  Logger.log(JSON.stringify(results, null, 2));
 }
 
 function testSearchByPhone() {
+  const results = findBookings("9999");
 
-  const results =
-    findBookings("9999");
-
-  Logger.log(
-    JSON.stringify(
-      results,
-      null,
-      2
-    )
-  );
+  Logger.log(JSON.stringify(results, null, 2));
 }
 
 function testSearchByBookingId() {
+  const results = findBookings("BK");
 
-  const results =
-    findBookings("BK");
-
-  Logger.log(
-    JSON.stringify(
-      results,
-      null,
-      2
-    )
-  );
+  Logger.log(JSON.stringify(results, null, 2));
 }

@@ -1,7 +1,3 @@
 function testProductionMode() {
-
-  Logger.log(
-    isProduction()
-  );
-
+  Logger.log(isProduction());
 }

@@ -1,32 +1,17 @@
 function searchBookings(query) {
+  const sheet = getDatabase().getSheetByName("Bookings");
 
-  const sheet =
-    getDatabase()
-      .getSheetByName("Bookings");
+  const values = sheet.getDataRange().getValues();
 
-  const values =
-    sheet.getDataRange()
-      .getValues();
+  const rows = values.slice(1);
 
-  const rows =
-    values.slice(1);
-
-  const q =
-    String(query)
-      .toLowerCase()
-      .trim();
+  const q = String(query).toLowerCase().trim();
 
   return rows
-    .filter(row => {
-
-      return row.some(cell =>
-        String(cell)
-          .toLowerCase()
-          .includes(q)
-      );
-
+    .filter((row) => {
+      return row.some((cell) => String(cell).toLowerCase().includes(q));
     })
-    .map(row => ({
+    .map((row) => ({
       bookingId: row[0],
       guestId: row[1],
       guestName: row[2],
@@ -37,6 +22,6 @@ function searchBookings(query) {
       roomId: row[7],
       rate: row[8],
       company: row[10],
-      status: row[13]
+      status: row[13],
     }));
 }
