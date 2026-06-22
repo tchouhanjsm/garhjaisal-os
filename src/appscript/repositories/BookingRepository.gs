@@ -208,3 +208,29 @@ function getBookingById(
 
   return null;
 }
+function getBookingsByStatus(
+  status
+) {
+
+  const sheet =
+    getDatabase()
+      .getSheetByName(
+        "Bookings"
+      );
+
+  const rows =
+    sheet
+      .getDataRange()
+      .getValues();
+
+  return rows
+    .slice(1)
+    .filter(
+      row =>
+        row[
+          BOOKING_COLUMNS.STATUS
+        ] === status
+    );
+
+}
+
