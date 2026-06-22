@@ -1,25 +1,7 @@
-function logAudit(
-  user,
-  module,
-  action,
-  recordId,
-  details
-) {
+function logAudit(user, module, action, recordId, details) {
+  const sheet = getDatabase().getSheetByName("AuditLogs");
 
-  const sheet =
-    getDatabase()
-      .getSheetByName("AuditLogs");
+  const logId = Utilities.getUuid();
 
-  const logId =
-    Utilities.getUuid();
-
-  sheet.appendRow([
-    logId,
-    new Date(),
-    user,
-    module,
-    action,
-    recordId,
-    details
-  ]);
+  sheet.appendRow([logId, new Date(), user, module, action, recordId, details]);
 }

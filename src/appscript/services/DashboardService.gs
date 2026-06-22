@@ -1,149 +1,131 @@
 function generateDashboard() {
-    const db =
-      getDatabase();
+  const db = getDatabase();
 
-  let dashboard =
-  db.getSheetByName(
-    "Dashboard"
+  let dashboard = db.getSheetByName("Dashboard");
+
+  if (!dashboard) {
+    dashboard = db.insertSheet("Dashboard");
+  }
+
+  dashboard.clear();
+
+  const today = todayDate();
+
+  const rooms = getAllRooms();
+
+  const bookings = getAllBookings();
+
+  const inHouse = bookings.filter((booking) => booking.status === "CHECKED_IN");
+
+  const arrivals = bookings.filter(
+    (booking) =>
+      booking.checkIn &&
+      Utilities.formatDate(
+        new Date(booking.checkIn),
+        Session.getScriptTimeZone(),
+        "yyyy-MM-dd",
+      ) === today,
   );
 
-if (!dashboard) {
+  const departures = bookings.filter(
+    (booking) =>
+      booking.checkOut &&
+      Utilities.formatDate(
+        new Date(booking.checkOut),
+        Session.getScriptTimeZone(),
+        "yyyy-MM-dd",
+      ) === today,
+  );
 
-  dashboard =
-    db.insertSheet(
-      "Dashboard"
-    );
+  const occupiedRoomIds = [
+    ...new Set(inHouse.map((booking) => booking.roomId)),
+  ];
 
-}
+  const availableRooms = rooms.filter(
+    (room) => !occupiedRoomIds.includes(room.roomId),
+  );
 
-dashboard.clear();
+  const totalRooms = rooms.length;
 
-  const today =
-    todayDate();
+  const occupiedRooms = occupiedRoomIds.length;
 
-  const bookings =
-    getAllBookings();
+  const occupancy = totalRooms > 0 ? (occupiedRooms / totalRooms) * 100 : 0;
 
-  const rooms =
-    getAllRooms();
+  const todayObj = new Date();
 
-  const arrivals =
-    bookings.filter(
-      b =>
-        b.checkIn === today &&
-        b.status !== "CANCELLED"
-    );
+  const nextThreeDays = bookings.filter((booking) => {
+    const arrival = new Date(booking.checkIn);
 
-  const departures =
-    bookings.filter(
-      b =>
-        b.checkOut === today &&
-        b.status !== "CANCELLED"
-    );
+    const diff = Math.floor((arrival - todayObj) / (1000 * 60 * 60 * 24));
 
-  const inHouse =
-    bookings.filter(
-      b =>
-        b.checkIn <= today &&
-        b.checkOut > today &&
-        b.status !== "CANCELLED"
-    );
-
-  const occupiedRoomIds =
-    [
-      ...new Set(
-        inHouse.map(
-          b => b.roomId
-        )
-      )
-    ];
-
-  const availableRooms =
-    rooms.filter(
-      room =>
-        !occupiedRoomIds.includes(
-          room.roomId
-        )
-    );
+    return diff >= 1 && diff <= 3;
+  });
 
   let row = 1;
 
-  dashboard
-    .getRange(row++, 1)
-    .setValue(
-      "GARHJAISAL OS DASHBOARD"
-    );
+  dashboard.getRange(row++, 1).setValue("GARHJAISAL OS DASHBOARD");
+
+  dashboard.getRange(row++, 1).setValue("Generated: " + new Date());
 
   row++;
 
-  dashboard
-    .getRange(row++, 1)
-    .setValue(
-      "Today's Arrivals"
-    );
+  dashboard.getRange(row++, 1).setValue(`Rooms Total: ${totalRooms}`);
 
-  arrivals.forEach(a => {
-
-    dashboard
-      .getRange(row++, 1)
-      .setValue(
-        `${a.guestName} - ${a.roomName}`
-      );
-
-  });
-
-  row++;
+  dashboard.getRange(row++, 1).setValue(`Occupied Rooms: ${occupiedRooms}`);
 
   dashboard
     .getRange(row++, 1)
-    .setValue(
-      "Today's Departures"
-    );
+    .setValue(`Available Rooms: ${availableRooms.length}`);
 
-  departures.forEach(d => {
+  dashboard.getRange(row++, 1).setValue(`Occupancy: ${occupancy.toFixed(2)}%`);
 
+  row += 2;
+
+  dashboard.getRange(row++, 1).setValue("TODAY'S ARRIVALS");
+
+  arrivals.forEach((booking) => {
     dashboard
       .getRange(row++, 1)
-      .setValue(
-        `${d.guestName} - ${d.roomName}`
-      );
-
+      .setValue(`${booking.guestName} - ${booking.roomName}`);
   });
 
-  row++;
+  row += 2;
 
-  dashboard
-    .getRange(row++, 1)
-    .setValue(
-      "In-House Guests"
-    );
+  dashboard.getRange(row++, 1).setValue("TODAY'S DEPARTURES");
 
-  inHouse.forEach(g => {
-
+  departures.forEach((booking) => {
     dashboard
       .getRange(row++, 1)
-      .setValue(
-        `${g.guestName} - ${g.roomName}`
-      );
-
+      .setValue(`${booking.guestName} - ${booking.roomName}`);
   });
 
-  row++;
+  row += 2;
 
-  dashboard
-    .getRange(row++, 1)
-    .setValue(
-      "Available Rooms"
-    );
+  dashboard.getRange(row++, 1).setValue("IN-HOUSE GUESTS");
 
-  availableRooms.forEach(r => {
-
+  inHouse.forEach((booking) => {
     dashboard
       .getRange(row++, 1)
-      .setValue(
-        r.roomName
-      );
-
+      .setValue(`${booking.guestName} - ${booking.roomName}`);
   });
 
+  row += 2;
+
+  dashboard.getRange(row++, 1).setValue("AVAILABLE ROOMS");
+
+  availableRooms.forEach((room) => {
+    dashboard.getRange(row++, 1).setValue(room.roomName);
+  });
+
+  row += 2;
+
+  dashboard.getRange(row++, 1).setValue("UPCOMING ARRIVALS (NEXT 3 DAYS)");
+
+  nextThreeDays.forEach((booking) => {
+    dashboard
+      .getRange(row++, 1)
+      .setValue(`${booking.guestName} - ${booking.roomName}`);
+  });
+
+  dashboard.autoResizeColumn(1);
 }

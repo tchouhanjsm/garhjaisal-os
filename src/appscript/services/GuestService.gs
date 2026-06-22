@@ -1,40 +1,27 @@
 function getOrCreateGuest(data) {
-
-  const existingGuest =
-    findGuestByPhoneOrEmail(
-      data.phone,
-      data.email
-    );
+  const existingGuest = findGuestByPhoneOrEmail(data.phone, data.email);
 
   if (existingGuest) {
     return existingGuest.guestId;
   }
 
-  const guestId =
-    generateGuestId();
+  const guestId = generateGuestId();
 
   createGuest({
     guestId,
-    name:
-      data.guestName,
+    name: data.guestName,
 
-    phone:
-      data.phone || "",
+    phone: data.phone || "",
 
-    email:
-      data.email || "",
+    email: data.email || "",
 
-    nationality:
-      data.nationality || "",
+    nationality: data.nationality || "",
 
-    idType:
-      "",
+    idType: "",
 
-    idNumber:
-      "",
+    idNumber: "",
 
-    notes:
-      ""
+    notes: "",
   });
 
   return guestId;

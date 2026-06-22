@@ -1,8 +1,3 @@
 function testCalendar() {
-
-  generateMonthlyCalendar(
-    2027,
-    1
-  );
-
+  generateMonthlyCalendar(2027, 1);
 }

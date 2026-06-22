@@ -1,33 +1,21 @@
 function getAllRooms() {
+  const sheet = getDatabase().getSheetByName("Rooms");
 
-  const sheet =
-    getDatabase()
-      .getSheetByName("Rooms");
+  const rows = sheet.getDataRange().getValues().slice(1);
 
-  const rows =
-    sheet.getDataRange()
-      .getValues()
-      .slice(1);
-
-  return rows.map(row => ({
+  return rows.map((row) => ({
     roomId: row[0],
     roomNo: row[1],
-    roomName: row[2]
+    roomName: row[2],
   }));
 }
 
 function getAllBookings() {
+  const sheet = getDatabase().getSheetByName("Bookings");
 
-  const sheet =
-    getDatabase()
-      .getSheetByName("Bookings");
+  const rows = sheet.getDataRange().getValues().slice(1);
 
-  const rows =
-    sheet.getDataRange()
-      .getValues()
-      .slice(1);
-
-  return rows.map(row => ({
+  return rows.map((row) => ({
     bookingId: row[0],
     guestName: row[2],
 
@@ -37,6 +25,6 @@ function getAllBookings() {
     roomId: row[7],
     roomName: row[8],
 
-    status: row[14]
+    status: row[14],
   }));
 }

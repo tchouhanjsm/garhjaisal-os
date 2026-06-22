@@ -1,38 +1,21 @@
 function testGuestCreation() {
+  const booking = createBooking({
+    guestName: "John Smith",
 
-  const booking =
-    createBooking({
+    phone: "9999999999",
 
-      guestName:
-        "John Smith",
+    email: "john@example.com",
 
-      phone:
-        "9999999999",
+    checkIn: "2027-01-15",
 
-      email:
-        "john@example.com",
+    checkOut: "2027-01-17",
 
-      checkIn:
-        "2027-01-15",
+    roomId: "R003",
 
-      checkOut:
-        "2027-01-17",
+    rate: 5000,
 
-      roomId:
-        "R003",
+    createdBy: "OWNER",
+  });
 
-      rate:
-        5000,
-
-      createdBy:
-        "OWNER"
-    });
-
-  Logger.log(
-    JSON.stringify(
-      booking,
-      null,
-      2
-    )
-  );
+  Logger.log(JSON.stringify(booking, null, 2));
 }

@@ -1,5 +1,4 @@
 function testDoubleBooking() {
-
   createBooking({
     guestName: "Guest One",
     phone: "1111111111",
@@ -11,7 +10,7 @@ function testDoubleBooking() {
 
     rate: 4000,
 
-    createdBy: "OWNER"
+    createdBy: "OWNER",
   });
 
   createBooking({
@@ -25,6 +24,6 @@ function testDoubleBooking() {
 
     rate: 4000,
 
-    createdBy: "OWNER"
+    createdBy: "OWNER",
   });
 }

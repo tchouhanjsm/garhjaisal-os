@@ -1,5 +1,3 @@
 function testBackup() {
-
   runBackup();
-
 }
