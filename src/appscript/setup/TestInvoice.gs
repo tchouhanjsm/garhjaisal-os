@@ -1,5 +1,5 @@
-function testBookingLookup() {
-  const booking = getBookingById("BK00004");
+function testCreateInvoice() {
+  const invoice = createInvoice("BK00004");
 
-  Logger.log(JSON.stringify(booking, null, 2));
+  Logger.log(JSON.stringify(invoice, null, 2));
 }

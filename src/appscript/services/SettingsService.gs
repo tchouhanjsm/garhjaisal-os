@@ -9,9 +9,5 @@ function getSetting(key) {
     }
   }
 
-  return null;
-}
-
-function isProduction() {
-  return getSetting("SYSTEM_MODE") === "PRODUCTION";
+  return "";
 }

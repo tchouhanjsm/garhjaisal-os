@@ -39,3 +39,17 @@ function saveInvoice(invoice) {
 
   return invoice;
 }
+
+function getInvoiceById(invoiceId) {
+  const sheet = getDatabase().getSheetByName("Invoices");
+
+  const rows = sheet.getDataRange().getValues();
+
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i][0] === invoiceId) {
+      return rows[i];
+    }
+  }
+
+  return null;
+}

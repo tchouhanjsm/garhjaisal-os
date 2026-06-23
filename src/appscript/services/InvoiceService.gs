@@ -13,6 +13,10 @@ function createInvoice(bookingId) {
 
   const totalAmount = subtotal + gstAmount;
 
+  const advance = booking.advance || 0;
+
+  const balance = totalAmount - advance;
+
   const invoice = {
     invoiceId: generateInvoiceId(),
 
@@ -24,13 +28,13 @@ function createInvoice(bookingId) {
 
     company: booking.company || "",
 
-    invoiceDate: today(),
+    invoiceDate: todayDate(),
 
     checkIn: booking.checkIn,
 
     checkOut: booking.checkOut,
 
-    roomName: booking.roomName,
+    roomName: "Heritage Room Accommodation",
 
     nights: booking.nights,
 
@@ -44,15 +48,15 @@ function createInvoice(bookingId) {
 
     totalAmount: totalAmount,
 
-    amountPaid: 0,
+    amountPaid: advance,
 
-    balance: totalAmount,
+    balance: balance,
 
     pdfFileId: "",
 
     status: "DRAFT",
 
-    createdAt: today(),
+    createdAt: todayDate(),
   };
 
   saveInvoice(invoice);
