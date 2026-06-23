@@ -3,14 +3,23 @@ function saveInvoice(invoice) {
 
   sheet.appendRow([
     invoice.invoiceId,
+
+    invoice.invoiceType,
+
     invoice.bookingId,
+
     invoice.guestId,
+
     invoice.guestName,
+
     invoice.company,
+
+    invoice.gstin,
 
     invoice.invoiceDate,
 
     invoice.checkIn,
+
     invoice.checkOut,
 
     invoice.roomName,
@@ -22,6 +31,7 @@ function saveInvoice(invoice) {
     invoice.subtotal,
 
     invoice.gstPercent,
+
     invoice.gstAmount,
 
     invoice.totalAmount,

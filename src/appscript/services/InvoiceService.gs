@@ -7,7 +7,7 @@ function createInvoice(bookingId) {
 
   const subtotal = booking.rate * booking.nights;
 
-  const gstPercent = 5;
+  const gstPercent = Number(getSetting("GST_PERCENT"));
 
   const gstAmount = subtotal * (gstPercent / 100);
 
@@ -22,11 +22,15 @@ function createInvoice(bookingId) {
 
     bookingId: booking.bookingId,
 
+    invoiceType: "BOOKING",
+
     guestId: booking.guestId,
 
     guestName: booking.guestName,
 
     company: booking.company || "",
+
+    gstin: getSetting("GSTIN"),
 
     invoiceDate: todayDate(),
 
