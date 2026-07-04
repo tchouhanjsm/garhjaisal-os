@@ -15,3 +15,13 @@ function generateGuestId() {
 
   return "GST" + String(nextNumber).padStart(5, "0");
 }
+
+function generateInvoiceId() {
+  const year = new Date().getFullYear();
+
+  const sheet = getDatabase().getSheetByName("Invoices");
+
+  const count = Math.max(sheet.getLastRow() - 1, 0) + 1;
+
+  return "INV-" + year + "-" + String(count).padStart(5, "0");
+}

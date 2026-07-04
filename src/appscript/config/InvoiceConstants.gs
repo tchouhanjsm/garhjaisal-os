@@ -1,0 +1,17 @@
+const InvoiceStatus = {
+  DRAFT: "DRAFT",
+  FINALIZED: "FINALIZED",
+  PAID: "PAID",
+  CANCELLED: "CANCELLED",
+};
+
+const InvoiceCategory = {
+  ROOM: "ROOM",
+  FOOD: "FOOD",
+  BREAKFAST: "BREAKFAST",
+  TRANSPORT: "TRANSPORT",
+  DESERT_SAFARI: "DESERT_SAFARI",
+  LAUNDRY: "LAUNDRY",
+  EXTRA_BED: "EXTRA_BED",
+  MISC: "MISC",
+};

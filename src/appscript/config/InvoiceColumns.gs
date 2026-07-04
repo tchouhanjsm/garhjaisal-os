@@ -1,0 +1,45 @@
+const INVOICE_COLUMNS = {
+  INVOICE_ID: 0,
+
+  INVOICE_TYPE: 1,
+
+  BOOKING_ID: 2,
+
+  GUEST_ID: 3,
+
+  GUEST_NAME: 4,
+
+  COMPANY: 5,
+
+  GSTIN: 6,
+
+  INVOICE_DATE: 7,
+
+  CHECK_IN: 8,
+
+  CHECK_OUT: 9,
+
+  ROOM_NAME: 10,
+
+  NIGHTS: 11,
+
+  RATE: 12,
+
+  SUBTOTAL: 13,
+
+  GST_PERCENT: 14,
+
+  GST_AMOUNT: 15,
+
+  TOTAL_AMOUNT: 16,
+
+  AMOUNT_PAID: 17,
+
+  BALANCE: 18,
+
+  PDF_FILE_ID: 19,
+
+  STATUS: 20,
+
+  CREATED_AT: 21,
+};
