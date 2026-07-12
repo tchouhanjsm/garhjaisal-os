@@ -1,0 +1,32 @@
+Recommendations for Resolving Critical System-Wide Issues
+==========================================================
+
+1. Standardize the Bookings Schema
+----------------------------------
+* Recommendation: Adopt the 19-column schema layout (including nights, roomName, checkinDate, checkoutDate) across all files.
+* Action: Update setupBookingsSheet in SetupDatabase.gs to create all 19 headers.
+* Action: Refactor RoomRepository.gs, CalendarRepository.gs, SearchRepository.gs, and DashboardService.gs to use index offsets mapped to the BOOKING_COLUMNS constant rather than hardcoded magic numbers.
+
+2. Align the Guests Schema
+--------------------------
+* Recommendation: Expand the Guests sheet to 11 columns to match the database operations.
+* Action: Update setupGuestsSheet in SetupDatabase.gs to include "LastStay" and "CreatedAt" as the 10th and 11th columns.
+* Action: Ensure GuestRepository.gs references these exact indices when reading/writing stay stats.
+
+3. Fix the Missing updateInvoice Function
+-----------------------------------------
+* Recommendation: Implement the missing updateInvoice function.
+* Action: Add updateInvoice(invoice) to InvoiceRepository.gs. The function should locate the invoice row in the "Invoices" sheet by ID and update the cell values for subtotal, discount, taxAmount, grandTotal, balance, and status.
+
+4. Convert Raw Array Access to Structured Objects
+-------------------------------------------------
+* Recommendation: Avoid assigning custom properties directly to raw arrays returned from getInvoiceById.
+* Action: Modify getInvoiceById in InvoiceRepository.gs to map the spreadsheet row to a structured invoice object, similar to how getBookingById maps bookings.
+* Action: Ensure updateInvoice serializes the object back into a flat array structure when updating the sheet.
+
+5. Resolve Namespace Clashes and Clean Up Code
+----------------------------------------------
+* Recommendation: Ensure all globally declared Apps Script functions have unique names to prevent collision.
+* Action: Rename repository query helpers (e.g. findInvoiceItemsByInvoiceId) and keep service entry points distinct.
+* Action: Delete the duplicate empty file src/services/InvoiceService.gs.
+* Action: Consolidate redundant date helpers from DateHelper.gs and DateUtils.gs into a single date utility file.
