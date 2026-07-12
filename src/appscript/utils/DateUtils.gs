@@ -9,3 +9,14 @@ function formatDateOnly(dateValue) {
     "dd-MMM-yyyy",
   );
 }
+function formatInvoiceDate(date) {
+  if (!date) {
+    return "";
+  }
+
+  return Utilities.formatDate(
+    new Date(date),
+    Session.getScriptTimeZone(),
+    "dd MMM yyyy",
+  );
+}
