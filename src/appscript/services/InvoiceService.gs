@@ -11,7 +11,7 @@ function createInvoice(invoiceData) {
     invoiceType: invoiceData.invoiceType || "BOOKING",
     guestId: booking.guestId,
     guestName: booking.guestName,
-    company: booking.company || "",
+    company: booking.company || booking.source || "",
     gstin: getSetting("GSTIN"),
     invoiceDate: todayDate(),
     checkIn: booking.checkIn,
@@ -29,16 +29,19 @@ function createInvoice(invoiceData) {
     balance: 0,
 
     pdfFileId: "",
-    status: "DRAFT",
+    status: InvoiceStatus.DRAFT,
     createdAt: todayDate(),
   };
 
   saveInvoice(invoice);
 
   // Add room charge as first line item
+  const room = getRoomById(booking.roomId);
+
   addInvoiceItem(invoice.invoiceId, {
     category: InvoiceCategory.ROOM,
-    description: "Heritage Room",
+    referenceId: booking.roomId,
+    description: room ? room.roomName : "Room Charges",
     quantity: Number(booking.nights),
     unit: InvoiceUnit.NIGHT,
     rate: Number(booking.rate),
@@ -46,8 +49,6 @@ function createInvoice(invoiceData) {
     taxable: true,
     notes: "",
   });
-
-  calculateTotals(invoice.invoiceId);
 
   return getInvoiceById(invoice.invoiceId);
 }
@@ -96,20 +97,20 @@ function calculateTotals(invoiceId) {
     subtotal += Number(item.quantity) * Number(item.rate);
     discount += Number(item.discount || 0);
 
-    if (item.taxable === true || item.taxable === "TRUE") {
+    if (item.taxable) {
       taxAmount += Number(item.taxAmount || 0);
     }
   });
 
-  const grandTotal = subtotal - discount + taxAmount;
+  const totalAmount = subtotal - discount + taxAmount;
 
   const invoice = getInvoiceById(invoiceId);
 
   invoice.subtotal = subtotal;
   invoice.discount = discount;
   invoice.gstAmount = taxAmount;
-  invoice.totalAmount = grandTotal;
-  invoice.balance = grandTotal - invoice.amountPaid;
+  invoice.totalAmount = totalAmount;
+  invoice.balance = totalAmount - invoice.amountPaid;
 
   updateInvoice(invoice);
 
@@ -117,7 +118,7 @@ function calculateTotals(invoiceId) {
     subtotal: subtotal,
     discount: discount,
     taxAmount: taxAmount,
-    grandTotal: grandTotal,
+    totalAmount: totalAmount,
   };
 }
 

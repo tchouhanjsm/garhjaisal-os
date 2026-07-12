@@ -42,3 +42,7 @@ function testFinalizeInvoice() {
 
   Logger.log(finalized);
 }
+function runInvoiceTests() {
+  testCreateInvoice();
+  testFinalizeInvoice();
+}
