@@ -3,12 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <title>Invoice</title>
+  <head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#222;
+    margin:30px;
+}
+
+h1,h2,h3{
+    margin:0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.header td{
+    vertical-align:top;
+}
+
+.company{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.subtitle{
+    color:#555;
+    line-height:18px;
+}
+
+.section{
+    margin-top:18px;
+}
+
+.item-table{
+    margin-top:10px;
+}
+
+.item-table th{
+    border:1px solid #888;
+    background:#f3f3f3;
+    padding:8px;
+    text-align:left;
+}
+
+.item-table td{
+    border:1px solid #bbb;
+    padding:8px;
+}
+
+.right{
+    text-align:right;
+}
+
+.center{
+    text-align:center;
+}
+
+.total-table{
+    width:320px;
+    margin-left:auto;
+    margin-top:15px;
+}
+
+.total-table td{
+    padding:5px;
+}
+
+.total{
+    font-size:15px;
+    font-weight:bold;
+}
+
+.footer{
+    margin-top:40px;
+    font-size:11px;
+    color:#555;
+}
+
+hr{
+    border:none;
+    border-top:1px solid #bbb;
+    margin:15px 0;
+}
+
+</style>
+
+</head>
 </head>
 
 <body>
 
-<h1>GARH JAISAL HAVELI</h1>
+<table class="header">
 
+<tr>
+
+<td>
+
+<div class="company">
+
+GARH JAISAL HAVELI
+
+</div>
+
+<div class="subtitle">
+
+Inside Jaisalmer Fort<br>
+
+Kotri Para, Jaisalmer 345001<br>
+
+GSTIN : <?= invoice.gstin ?>
+
+</div>
+
+</td>
+
+<td class="right">
+
+<h2>TAX INVOICE</h2>
+
+Invoice No<br>
+
+<b><?= invoice.invoiceId ?></b>
+
+</td>
+
+</tr>
+
+</table>
 <p>
 Inside Jaisalmer Fort, Kotri Para<br>
 Jaisalmer, Rajasthan - 345001<br>
@@ -74,17 +202,25 @@ GSTIN : <?= invoice.gstin ?>
 <hr>
 
 <h3>Invoice Items</h3>
-<table border="1" width="100%" cellspacing="0" cellpadding="5">
-
+<table class="item-table">
 <tr>
+
 <th>#</th>
+
 <th>Category</th>
+
 <th>Description</th>
-<th>Qty</th>
-<th>Unit</th>
-<th>Rate</th>
-<th>GST</th>
-<th>Amount</th>
+
+<th class="center">Qty</th>
+
+<th class="center">Unit</th>
+
+<th class="right">Rate</th>
+
+<th class="right">GST</th>
+
+<th class="right">Amount</th>
+
 </tr>
 
 <? for (var i = 0; i < items.length; i++) { ?>
@@ -101,11 +237,9 @@ GSTIN : <?= invoice.gstin ?>
 
 <td><?= items[i].unit ?></td>
 
-<td><?= items[i].rate ?></td>
-
-<td><?= items[i].taxAmount ?></td>
-
-<td><?= items[i].amount ?></td>
+<td class="right"><?= items[i].rate ?></td>
+<td class="right"><?= items[i].taxAmount ?></td>
+<td class="right"><?= items[i].amount ?></td>
 
 </tr>
 
@@ -114,29 +248,37 @@ GSTIN : <?= invoice.gstin ?>
 </table>
 <hr>
 
-<table align="right">
+<table class="total-table">
 
 <tr>
 
-<td><b>Subtotal</b></td>
+<td>Subtotal</td>
 
-<td><?= invoice.subtotal ?></td>
+<td class="right"><?= invoice.subtotal ?></td>
 
 </tr>
 
 <tr>
 
-<td><b>GST</b></td>
+<td>GST</td>
 
-<td><?= invoice.gstAmount ?></td>
+<td class="right"><?= invoice.gstAmount ?></td>
 
 </tr>
 
 <tr>
 
-<td><b>Total</b></td>
+<td class="total">
 
-<td><b><?= invoice.totalAmount ?></b></td>
+Total
+
+</td>
+
+<td class="right total">
+
+<?= invoice.totalAmount ?>
+
+</td>
 
 </tr>
 
@@ -144,15 +286,27 @@ GSTIN : <?= invoice.gstin ?>
 
 <td>Paid</td>
 
-<td><?= invoice.amountPaid ?></td>
+<td class="right">
+
+<?= invoice.amountPaid ?>
+
+</td>
 
 </tr>
 
 <tr>
 
-<td><b>Balance</b></td>
+<td>
 
-<td><b><?= invoice.balance ?></b></td>
+<b>Balance Due</b>
+
+</td>
+
+<td class="right">
+
+<b><?= invoice.balance ?></b>
+
+</td>
 
 </tr>
 
@@ -162,9 +316,23 @@ GSTIN : <?= invoice.gstin ?>
 
 <hr>
 
-<p>
+<div class="footer">
+
+<b>Bank Details</b><br>
+
+Hotel Garh Jaisal Haveli<br>
+
+HDFC Bank<br>
+
+A/C: XXXXXXXXXXXX<br>
+
+IFSC: HDFCXXXXXX
+
+<br><br>
+
 Thank you for staying with Garh Jaisal Haveli.
-</p>
+
+</div>
 
 </body>
 </html>
