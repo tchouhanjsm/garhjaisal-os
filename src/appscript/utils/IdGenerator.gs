@@ -1,27 +1,53 @@
-function generateBookingId() {
-  const bookingsSheet = getDatabase().getSheetByName("Bookings");
+/**
+ * ID Generator
+ */
 
-  const lastRow = bookingsSheet.getLastRow();
+function generateId(prefix) {
+  const timestamp = Utilities.formatDate(
+    new Date(),
+    Session.getScriptTimeZone(),
+    "yyyyMMddHHmmssSSS",
+  );
 
-  const nextNumber = Math.max(lastRow, 1);
-
-  return "BK" + String(nextNumber).padStart(5, "0");
+  return prefix + timestamp;
 }
 
-function generateGuestId() {
-  const sheet = getDatabase().getSheetByName("Guests");
-
-  const nextNumber = Math.max(sheet.getLastRow(), 1);
-
-  return "GST" + String(nextNumber).padStart(5, "0");
+function generateBookingId() {
+  return generateSequentialId("BK", "Bookings", 0);
 }
 
 function generateInvoiceId() {
-  const year = new Date().getFullYear();
+  return generateSequentialId("INV", "Invoices", 0);
+}
 
-  const sheet = getDatabase().getSheetByName("Invoices");
+function generateItemId() {
+  return generateSequentialId("ITEM", "InvoiceItems", 0);
+}
 
-  const count = Math.max(sheet.getLastRow() - 1, 0) + 1;
+function generatePaymentId() {
+  return generateSequentialId("PAY", "Payments", 0);
+}
 
-  return "INV-" + year + "-" + String(count).padStart(5, "0");
+function generateGuestId() {
+  return generateSequentialId("GST", "Guests", 0);
+}
+
+function generateSequentialId(prefix, sheetName, idColumn) {
+  const sheet = getSheet(sheetName);
+
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow <= 1) {
+    return prefix + "00001";
+  }
+
+  const lastId = String(sheet.getRange(lastRow, idColumn + 1).getValue());
+
+  if (!lastId.startsWith(prefix)) {
+    return prefix + "00001";
+  }
+
+  const number = parseInt(lastId.replace(prefix, ""), 10);
+
+  return prefix + Utilities.formatString("%05d", number + 1);
 }
