@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice</title>
+</head>
+
+<body>
+
+<h1>GARH JAISAL HAVELI</h1>
+
+<p>
+Inside Jaisalmer Fort, Kotri Para<br>
+Jaisalmer, Rajasthan - 345001<br>
+GSTIN : <?= invoice.gstin ?>
+</p>
+
+<hr>
+
+<table width="100%">
+<tr>
+<td width="50%">
+
+<b>Bill To</b><br>
+
+<?= invoice.guestName ?><br>
+
+<? if (invoice.company) { ?>
+<?= invoice.company ?>
+<? } ?>
+
+</td>
+
+<td width="50%">
+
+<b>Invoice No</b><br>
+<?= invoice.invoiceId ?><br><br>
+
+<b>Invoice Date</b><br>
+<?= invoice.invoiceDate ?><br>
+
+</td>
+</tr>
+</table>
+
+<hr>
+
+<table width="100%">
+<tr>
+
+<td>
+<b>Booking ID</b><br>
+<?= invoice.bookingId ?>
+</td>
+
+<td>
+<b>Check-in</b><br>
+<?= invoice.checkIn ?>
+</td>
+
+<td>
+<b>Check-out</b><br>
+<?= invoice.checkOut ?>
+</td>
+
+<td>
+<b>Nights</b><br>
+<?= invoice.nights ?>
+</td>
+
+</tr>
+</table>
+
+<hr>
+
+<h3>Invoice Items</h3>
+<table border="1" width="100%" cellspacing="0" cellpadding="5">
+
+<tr>
+<th>#</th>
+<th>Category</th>
+<th>Description</th>
+<th>Qty</th>
+<th>Unit</th>
+<th>Rate</th>
+<th>GST</th>
+<th>Amount</th>
+</tr>
+
+<? for (var i = 0; i < items.length; i++) { ?>
+
+<tr>
+
+<td><?= i + 1 ?></td>
+
+<td><?= items[i].category ?></td>
+
+<td><?= items[i].description ?></td>
+
+<td><?= items[i].quantity ?></td>
+
+<td><?= items[i].unit ?></td>
+
+<td><?= items[i].rate ?></td>
+
+<td><?= items[i].taxAmount ?></td>
+
+<td><?= items[i].amount ?></td>
+
+</tr>
+
+<? } ?>
+
+</table>
+<hr>
+
+<table align="right">
+
+<tr>
+
+<td><b>Subtotal</b></td>
+
+<td><?= invoice.subtotal ?></td>
+
+</tr>
+
+<tr>
+
+<td><b>GST</b></td>
+
+<td><?= invoice.gstAmount ?></td>
+
+</tr>
+
+<tr>
+
+<td><b>Total</b></td>
+
+<td><b><?= invoice.totalAmount ?></b></td>
+
+</tr>
+
+<tr>
+
+<td>Paid</td>
+
+<td><?= invoice.amountPaid ?></td>
+
+</tr>
+
+<tr>
+
+<td><b>Balance</b></td>
+
+<td><b><?= invoice.balance ?></b></td>
+
+</tr>
+
+</table>
+
+<br><br><br><br>
+
+<hr>
+
+<p>
+Thank you for staying with Garh Jaisal Haveli.
+</p>
+
+</body>
+</html>
