@@ -58,3 +58,11 @@ function testGenerateInvoicePdf() {
 
   Logger.log(fileId);
 }
+
+function testInvoiceLifecycle() {
+  const invoice = createInvoice({
+    bookingId: "BK00004",
+  });
+
+  Logger.log(invoice);
+}

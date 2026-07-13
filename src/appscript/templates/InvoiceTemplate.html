@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Invoice</title>
-<meta charset="UTF-8">
 
 <style>
 
@@ -60,6 +59,10 @@ table{
 .right{
     text-align:right;
 }
+.info-table td{
+    vertical-align:top;
+    padding:4px 0;
+}
 
 .center{
     text-align:center;
@@ -103,19 +106,21 @@ hr{
 
 <td>
 
-<div class="company">
-
-GARH JAISAL HAVELI
-
-</div>
+<?= hotel.name ?><br>
 
 <div class="subtitle">
 
-Inside Jaisalmer Fort<br>
+<?= hotel.address ?><br>
 
-Kotri Para, Jaisalmer 345001<br>
+<?= hotel.city ?><br>
 
-GSTIN : <?= invoice.gstin ?>
+GSTIN : <?= invoice.gstin ?><br>
+
+Phone : <?= hotel.phone ?><br>
+
+Email : <?= hotel.email ?><br>
+
+<?= hotel.website ?>
 
 </div>
 
@@ -136,60 +141,68 @@ Invoice No<br>
 </table>
 <hr>
 
-<table width="100%">
+<table class="info-table">
 <tr>
-<td width="50%">
+<td width="55%">
 
-<b>Bill To</b><br>
+<b>Bill To</b><br><br>
 
-<?= invoice.guestName ?><br>
+<? if (invoice.company && invoice.company !== "DIRECT") { ?>
 
-<? if (invoice.company) { ?>
-<?= invoice.company ?>
+<b><?= invoice.company ?></b><br>
+
+<? if (invoice.companyAddress) { ?>
+<?= invoice.companyAddress ?><br>
+<? } ?>
+
+<br>
+
+<b>Guest</b><br>
+
+<?= invoice.guestName ?>
+
+<? } else { ?>
+
+<b><?= invoice.guestName ?></b>
+
 <? } ?>
 
 </td>
 
-<td width="50%">
+<td width="45%">
 
-<b>Invoice No</b><br>
-<?= invoice.invoiceId ?><br><br>
+<table>
 
-<b>Invoice Date</b><br>
-<?= invoice.invoiceDate ?><br>
-
-</td>
-</tr>
-</table>
-
-<hr>
-
-<table width="100%">
 <tr>
-
-<td>
-<b>Booking ID</b><br>
-<?= invoice.bookingId ?>
-</td>
-
-<td>
-<b>Check-in</b><br>
-<?= invoice.checkIn ?>
-</td>
-
-<td>
-<b>Check-out</b><br>
-<?= invoice.checkOut ?>
-</td>
-
-<td>
-<b>Nights</b><br>
-<?= invoice.nights ?>
-</td>
-
+<td><b>Invoice Date</b></td>
+<td><?= invoice.invoiceDate ?></td>
 </tr>
+
+<tr>
+<td><b>Booking ID</b></td>
+<td><?= invoice.bookingId ?></td>
+</tr>
+
+<tr>
+<td><b>Check-in</b></td>
+<td><?= invoice.checkIn ?></td>
+</tr>
+
+<tr>
+<td><b>Check-out</b></td>
+<td><?= invoice.checkOut ?></td>
+</tr>
+
+<tr>
+<td><b>Nights</b></td>
+<td><?= invoice.nights ?></td>
+</tr>
+
 </table>
 
+</td>
+</tr>
+</table>
 <hr>
 
 <h3>Invoice Items</h3>
@@ -197,8 +210,6 @@ Invoice No<br>
 <tr>
 
 <th>#</th>
-
-<th>Category</th>
 
 <th>Description</th>
 
@@ -219,8 +230,6 @@ Invoice No<br>
 <tr>
 
   <td class="center"><?= i + 1 ?></td>
-
-  <td><?= items[i].category ?></td>
 
   <td><?= items[i].description ?></td>
 
@@ -245,7 +254,7 @@ Invoice No<br>
 
 <tr>
 
-<td>Subtotal</td>
+<td><b>Subtotal</b></td>
 
 <td class="right"><?= invoice.subtotal ?></td>
 
@@ -253,7 +262,7 @@ Invoice No<br>
 
 <tr>
 
-<td>GST</td>
+<td><b>GST</b></td>
 
 <td class="right"><?= invoice.gstAmount ?></td>
 
@@ -263,7 +272,7 @@ Invoice No<br>
 
 <td class="total">
 
-Total
+<b>Total</b>
 
 </td>
 
@@ -277,7 +286,7 @@ Total
 
 <tr>
 
-<td>Paid</td>
+<td><b>Paid</b></td>
 
 <td class="right">
 
@@ -313,15 +322,15 @@ Total
 
 <b>Bank Details</b><br>
 
-Hotel Garh Jaisal Haveli<br>
+<?= hotel.accountName ?><br>
 
-HDFC Bank<br>
+<?= hotel.bankName ?><br>
 
-A/C: XXXXXXXXXXXX<br>
+A/C : <?= hotel.accountNo ?><br>
 
-IFSC: HDFCXXXXXX
+IFSC : <?= hotel.ifsc ?><br>
 
-<br><br>
+UPI : <?= hotel.upiId ?>
 
 Thank you for staying with Garh Jaisal Haveli.
 
