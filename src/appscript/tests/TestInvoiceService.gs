@@ -48,7 +48,13 @@ function runInvoiceTests() {
 }
 
 function testInvoiceHtml() {
-  const html = generateInvoicePdf("INV-2015");
+  const html = generateInvoicePdf("INV-2009");
 
   Logger.log(html);
+}
+
+function testGenerateInvoicePdf() {
+  const fileId = generateInvoicePdf("INV-2010");
+
+  Logger.log(fileId);
 }

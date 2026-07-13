@@ -13,8 +13,19 @@ function saveInvoiceItem(item) {
 
   const subtotal = quantity * rate;
   const taxableAmount = subtotal - discount;
-  const taxAmount = taxable ? (taxableAmount * gstPercent) / 100 : 0;
-  const amount = taxableAmount + taxAmount;
+  const taxAmount = taxable ? taxableAmount * (gstPercent / 100) : 0;
+
+  const amount = subtotal - discount + taxAmount;
+
+  Logger.log({
+    quantity,
+    rate,
+    subtotal,
+    taxableAmount,
+    gstPercent,
+    taxAmount,
+    amount,
+  });
 
   const lineNo = sheet.getLastRow();
 

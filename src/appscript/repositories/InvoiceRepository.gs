@@ -25,6 +25,8 @@ function saveInvoice(invoice) {
     invoice.amountPaid,
     invoice.balance,
     invoice.pdfFileId,
+    invoice.pdfUrl || "",
+    invoice.pdfGeneratedAt || "",
     invoice.status,
     invoice.createdAt,
     invoice.updatedAt || "",
@@ -62,9 +64,11 @@ function getInvoiceById(invoiceId) {
       amountPaid: Number(row[16]),
       balance: Number(row[17]),
       pdfFileId: row[18],
-      status: row[19],
-      createdAt: row[20],
-      updatedAt: row[21],
+      pdfUrl: row[19],
+      pdfGeneratedAt: row[20],
+      status: row[21],
+      createdAt: row[22],
+      updatedAt: row[23],
     };
   }
 
@@ -91,7 +95,7 @@ function updateInvoice(invoice) {
     if (values[i][0] !== invoice.invoiceId) continue;
 
     sheet
-      .getRange(i + 1, 1, 1, 22)
+      .getRange(i + 1, 1, 1, 24)
       .setValues([
         [
           invoice.invoiceId,
@@ -113,6 +117,8 @@ function updateInvoice(invoice) {
           invoice.amountPaid,
           invoice.balance,
           invoice.pdfFileId,
+          invoice.pdfUrl,
+          invoice.pdfGeneratedAt,
           invoice.status,
           invoice.createdAt,
           todayDate(),
