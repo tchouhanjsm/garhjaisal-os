@@ -30,6 +30,7 @@ function saveInvoice(invoice) {
     invoice.status,
     invoice.createdAt,
     invoice.updatedAt || "",
+    invoice.paymentDate || "",
   ]);
 
   return invoice;
@@ -69,6 +70,7 @@ function getInvoiceById(invoiceId) {
       status: row[21],
       createdAt: row[22],
       updatedAt: row[23],
+      paymentDate: row[24],
     };
   }
 
@@ -95,7 +97,7 @@ function updateInvoice(invoice) {
     if (values[i][0] !== invoice.invoiceId) continue;
 
     sheet
-      .getRange(i + 1, 1, 1, 24)
+      .getRange(i + 1, 1, 1, 25)
       .setValues([
         [
           invoice.invoiceId,
@@ -122,6 +124,7 @@ function updateInvoice(invoice) {
           invoice.status,
           invoice.createdAt,
           todayDate(),
+          invoice.paymentDate || "",
         ],
       ]);
 
