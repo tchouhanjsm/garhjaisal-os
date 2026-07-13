@@ -14,6 +14,11 @@ function generateInvoicePdf(invoiceId) {
 
 function buildInvoiceHtml(invoiceId) {
   const invoice = getInvoiceById(invoiceId);
+  const booking = getBookingById(invoice.bookingId);
+  invoice.companyAddress = "";
+  if (booking) {
+    invoice.phone = booking.phone || "";
+  }
 
   if (!invoice) {
     throw new Error("Invoice not found.");
@@ -41,6 +46,22 @@ function buildInvoiceHtml(invoiceId) {
     item.taxAmount = formatCurrency(item.taxAmount);
     item.amount = formatCurrency(item.amount);
   });
+  const hotel = {
+    name: getSetting("HOTEL_NAME"),
+    address: getSetting("HOTEL_ADDRESS"),
+    city: getSetting("HOTEL_CITY"),
+    phone: getSetting("HOTEL_PHONE"),
+    email: getSetting("HOTEL_EMAIL"),
+    website: getSetting("HOTEL_WEBSITE"),
+
+    bankName: getSetting("BANK_NAME"),
+    accountName: getSetting("BANK_ACCOUNT_NAME"),
+    accountNo: getSetting("BANK_ACCOUNT_NO"),
+    ifsc: getSetting("BANK_IFSC"),
+    upiId: getSetting("UPI_ID"),
+  };
+
+  template.hotel = hotel;
   template.invoice = invoice;
   template.items = items;
 

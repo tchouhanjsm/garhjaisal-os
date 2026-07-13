@@ -140,3 +140,9 @@ function finalizeInvoice(invoiceId) {
 
   return invoice;
 }
+
+function markInvoicePaid(invoiceId) {}
+
+function cancelInvoice(invoiceId) {}
+
+function reopenInvoice(invoiceId) {}
