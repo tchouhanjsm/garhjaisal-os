@@ -141,7 +141,22 @@ function finalizeInvoice(invoiceId) {
   return invoice;
 }
 
-function markInvoicePaid(invoiceId) {}
+function markInvoicePaid(invoiceId) {
+  const invoice = getInvoiceById(invoiceId);
+
+  if (!invoice) {
+    throw new Error("Invoice not found.");
+  }
+
+  invoice.amountPaid = invoice.totalAmount;
+  invoice.balance = 0;
+  invoice.status = InvoiceStatus.PAID;
+  invoice.paymentDate = todayDate();
+
+  updateInvoice(invoice);
+
+  return invoice;
+}
 
 function cancelInvoice(invoiceId) {}
 

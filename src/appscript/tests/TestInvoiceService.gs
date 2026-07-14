@@ -66,3 +66,9 @@ function testInvoiceLifecycle() {
 
   Logger.log(invoice);
 }
+
+function testMarkInvoicePaid() {
+  const invoice = markInvoicePaid("INV-2007");
+
+  Logger.log(invoice);
+}
