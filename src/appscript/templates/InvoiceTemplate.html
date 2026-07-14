@@ -147,9 +147,7 @@ Invoice No<br>
 
 <b>Bill To</b><br><br>
 
-<? if (invoice.company && invoice.company !== "DIRECT") { ?>
-
-<b><?= invoice.company ?></b><br>
+<b><? if (invoice.company && invoice.company !== "DIRECT") { ?></b><br>
 
 <? if (invoice.companyAddress) { ?>
 <?= invoice.companyAddress ?><br>
